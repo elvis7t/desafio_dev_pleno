@@ -1,0 +1,7 @@
+FROM nginx:1.21
+
+COPY nginx/html/ /usr/share/html:ro
+COPY nginx/nginx/ /etc/nginx
+COPY nginx/cert/ /cert
+
+EXPOSE 80

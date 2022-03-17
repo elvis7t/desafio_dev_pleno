@@ -1,0 +1,59 @@
+version: '3'
+services:
+  nginx:
+    container_name: app-nginx
+    image: elvis7t/nginx_app:1.0
+    ports:
+        - 88:80
+        - 443:443    
+    networks:
+      - app
+  
+  app:
+    container_name: app-container
+    image: elvis7t/app_curso_online:1.0
+    ports:
+      - '85:80'
+    networks:
+      -  app
+  
+  app2:
+    container_name: app2-container
+    image: elvis7t/app_curso_online:1.2
+    ports:
+      - '86:80'
+    networks:
+      -  app
+
+  mysql:    
+    container_name: mysql-container
+    image: elvis7t/mysql:1.1
+    restart: always    
+    ports: 
+      - '3306:3306'
+    networks:
+      - app  
+
+  phpmyadmin:
+    container_name: phpmyadmin-container
+    image: phpmyadmin
+    restart: always    
+    links:
+    - mysql    
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - "8080:80"      
+    depends_on:
+      - mysql
+    networks:  
+        - app
+
+networks:
+  app:
+    driver: "bridge"
+
+
+  
