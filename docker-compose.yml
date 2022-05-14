@@ -16,7 +16,7 @@ services:
   app:
     container_name: php-container
     build:
-      context: ./db
+      context: ./app
       dockerfile: DOCKERFILE
     restart: always
     ports:
@@ -29,7 +29,7 @@ services:
   app2:
     container_name: php-container2
     build:  
-      context: ./db
+      context: ./app2
       dockerfile: DOCKERFILE
     restart: always
     ports:
